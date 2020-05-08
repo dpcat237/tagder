@@ -5,6 +5,10 @@ Unofficial mobile app for [TagPacker](https://tagpacker.com/), built with [Nativ
 For now, it only allows to save and edit URLs. Tested on Android device.
 
 
+### Configuration
+
+Add `userID` and `apiKey` on [`keys.json`](https://github.com/dpcat237/tagder/blob/master/app/constants/keys.json)
+
 ### Usage
 
 ``` bash
