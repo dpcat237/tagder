@@ -782,7 +782,7 @@
     tns-core-modules-widgets "6.5.0"
     tslib "1.10.0"
 
-"@nativescript/theme@^2.2.1":
+"@nativescript/theme@^2.3.3":
   version "2.3.3"
   resolved "https://registry.yarnpkg.com/@nativescript/theme/-/theme-2.3.3.tgz#2584d03687831a2c13b9136af5c9456c37df8a9c"
   integrity sha512-fWn9qTCWJSaN3REX23Fb4N5X2IGNh+RbvzS3b3/ib0KeXrrhovOzBBxoP9db7kgJ5/FUtyBqbvB4xzxE+1z2nQ==
@@ -1241,7 +1241,7 @@ asynckit@^0.4.0:
   resolved "https://registry.yarnpkg.com/asynckit/-/asynckit-0.4.0.tgz#c79ed97f7f34cb8f2ba1bc9790bcc366474b4b79"
   integrity sha1-x57Zf380y48robyXkLzDZkdLS3k=
 
-atob@2.1.2, atob@^2.1.2:
+atob@^2.1.2:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/atob/-/atob-2.1.2.tgz#6d9517eb9e030d2436666651e86bd9f6f13533c9"
   integrity sha512-Wm6ukoaOGJi/73p/cl2GvLjTI5JM1k/O14isD73YML8StrH/7/lRFgmg8nICZgD3bZZvjwCGxtMOD3wWNAu8cg==
