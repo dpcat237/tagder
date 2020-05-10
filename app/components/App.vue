@@ -130,9 +130,11 @@
                     name: this.tagField,
                 }
                 this.tagsAdded.push(tag)
+                this.tagField = ""
             },
             addSelectedTag(tag) {
                 this.tagsAdded.push(tag)
+                this.tagField = ""
             },
             cleanFields() {
                 this.linkId = ""
@@ -141,6 +143,7 @@
                 this.titleField = ""
                 this.tagField = ""
                 this.tagsAdded = []
+                this.$store.dispatch('cleanTags')
             },
             getLinkDetails() {
                 if (this.urlField === "") {

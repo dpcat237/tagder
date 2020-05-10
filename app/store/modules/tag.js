@@ -21,6 +21,9 @@ class Tag {
 
 export default {
   actions: {
+    cleanTags({ commit }) {
+      commit('updateData', { key: 'tags', value: [] })
+    },
     filterTags({ commit }, prefix) {
       const options = {
         headers: {
