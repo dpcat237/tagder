@@ -44,6 +44,7 @@
 </template>
 
 <script>
+    const application = require("tns-core-modules/application")
     export default {
         data() {
             return {
@@ -147,6 +148,27 @@
                 }
                 this.$store.dispatch('getLink', this.urlField)
             },
+            listenForShared() {
+                if (!application.android) {
+                    return
+                }
+                let $el = this
+                application.android.on(application.AndroidApplication.activityResumedEvent, function (args) {
+                    try {
+                        let a = args.activity
+                        let Intent_1 = android.content.Intent
+                        let argIntent = a.getIntent()
+                        let argIntentType = argIntent.getType()
+                        if (argIntentType !== "text/plain") {
+                            return
+                        }
+
+                        $el.setShared(argIntent.getStringExtra(Intent_1.EXTRA_TEXT))
+                    } catch (e) {
+                        console.log(e)
+                    }
+                })
+            },
             preloadLinkDetails(link) {
                 this.linkId = link.id
                 this.titleField = link.title
@@ -177,12 +199,21 @@
 
                 this.$store.dispatch('saveLnk', data)
             },
+            setShared(url) {
+                if (url !== "") {
+                    this.urlField = url
+                    this.getLinkDetails()
+                }
+            },
             tagsSearch() {
                 if (this.tagField.length < 3) {
                     return;
                 }
                 this.$store.dispatch('filterTags', this.tagField)
             },
+        },
+        created() {
+            this.listenForShared()
         },
     }
 </script>

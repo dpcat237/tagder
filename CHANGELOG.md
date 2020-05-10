@@ -1,3 +1,7 @@
+# 0.2.0 (2020.05.10)
+
+#### Features
+- Share link from another app
 # 0.1.0 (2020.05.09)
 
 #### Features
