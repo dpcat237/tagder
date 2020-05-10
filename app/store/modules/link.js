@@ -21,7 +21,7 @@ class Link {
 
 export default {
   actions: {
-    getLink({ commit }, url) {
+    getLink({ commit, dispatch }, url) {
       commit('updateData', { key: 'isLink', value: false })
 
       const options = {
@@ -37,10 +37,35 @@ export default {
             if (response.data.length > 0) {
               commit('updateData', { key: 'loadedLink', value: response.data[0] })
               commit('updateData', { key: 'isLink', value: true })
+              return
+            }
+            dispatch('getLinkMeta', url)
+          })
+          .catch(function(error) {
+            console.log('Error fetching link details ' + error)
+          })
+    },
+    getLinkMeta({ commit }, url) {
+      axios
+          .get(url)
+          .then(function(response) {
+            if (response.data.length > 0) {
+              let matches = response.data.match("<title>(.*?)</title>")
+              if (matches.length > 0) {
+                let link = {
+                  id: "",
+                  title: matches[1].trim(),
+                  description: "",
+                  tags: [],
+                }
+
+                commit('updateData', { key: 'loadedLink', value: link })
+                commit('updateData', { key: 'isLink', value: { title: true } })
+              }
             }
           })
           .catch(function(error) {
-            console.log('Error fetching tags by prefix' + error)
+            console.log('Error fetching link meta ' + error)
           })
     },
     saveLnk({ commit }, link) {
