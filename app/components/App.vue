@@ -127,12 +127,15 @@
         methods: {
             addNewTag() {
                 const tag = {
-                    name: this.tagField,
+                    name: this.cleanNewTag(this.tagField),
                 }
                 this.tagsAdded.push(tag)
                 this.tagField = ""
             },
             addSelectedTag(tag) {
+                if (this.isTagExists(tag)) {
+                    return
+                }
                 this.tagsAdded.push(tag)
                 this.tagField = ""
             },
@@ -145,11 +148,22 @@
                 this.tagsAdded = []
                 this.$store.dispatch('cleanTags')
             },
+            cleanNewTag(tag) {
+                return tag.toLowerCase().trim().replace(" ","_")
+            },
             getLinkDetails() {
                 if (this.urlField === "") {
                     return
                 }
                 this.$store.dispatch('getLink', this.urlField)
+            },
+            isTagExists(tag) {
+                for (let i = 0; i < this.tagsAdded.length; i++) {
+                    if (this.tagsAdded[i].name === tag.name) {
+                        return true
+                    }
+                }
+                return false
             },
             listenForShared() {
                 if (!application.android) {
@@ -187,6 +201,15 @@
                 }
             },
             saveLnk() {
+                if (this.urlField === '' || this.titleField === '') {
+                    alert({
+                        title: "Alert",
+                        message: "URL and title fields are required",
+                        okButtonText: "OK"
+                    })
+                    return;
+                }
+
                 const data = {
                     description: this.description,
                     isPrivate: false,
@@ -214,6 +237,11 @@
                 }
                 this.$store.dispatch('filterTags', this.tagField)
             },
+        },
+        beforeUpdate() {
+            if (this.urlField === '') {
+                this.tagsAdded = []
+            }
         },
         created() {
             this.listenForShared()

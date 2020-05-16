@@ -50,7 +50,11 @@ export default {
           .get(url)
           .then(function(response) {
             if (response.data.length > 0) {
-              let matches = response.data.match("<title>(.*?)</title>")
+              let matches = response.data.match("<title[^>]*>(.*?)</title>")
+              if (matches === null) {
+                console.log('Error looking for title in body')
+                return
+              }
               if (matches.length > 0) {
                 let link = {
                   id: "",
@@ -86,6 +90,7 @@ export default {
             }
           },
           error => {
+            console.log('Error saving link ' + error)
             commit('updateData', { key: 'errorMessage', value: 'Error saving link' })
             commit('updateData', { key: 'savedLink', value: true })
           }
